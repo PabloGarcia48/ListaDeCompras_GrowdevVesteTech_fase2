@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_lists/models/item_list.model.dart';
 
 class AddItem extends StatefulWidget {
   const AddItem({super.key});
@@ -12,6 +13,24 @@ class _AddItemState extends State<AddItem> {
   final valueItemController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
+
+  void addItem() {
+    if (!formKey.currentState!.validate()) return;
+
+    final value = double.tryParse(
+      valueItemController.text.replaceAll(',', '.'),
+    );
+
+    if (value == null) {
+      print("Valor do produto deve ser número");
+      return;
+    }
+
+    final item = ItemList(itemName: nameItemController.text, itemValue: value);
+
+    Navigator.of(context).pop(item);
+    print("Entrou na funçao - ${nameItemController.text} ${value}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +86,12 @@ class _AddItemState extends State<AddItem> {
                 if (value == null || value.isEmpty) {
                   return "Campo Obrigatório";
                 }
+
+                final parsed = double.tryParse(value.replaceAll(',', '.'));
+                if (parsed == null) {
+                  return 'Valor inválido';
+                }
+
                 return null;
               },
             ),
@@ -76,7 +101,7 @@ class _AddItemState extends State<AddItem> {
                 children: [
                   const Spacer(),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: addItem,
                     child: Text(
                       "Adicionar",
                       style: TextStyle(color: Colors.blue, fontSize: 16),

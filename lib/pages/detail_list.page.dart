@@ -15,18 +15,24 @@ class _DetailListPageState extends State<DetailListPage> {
     ItemList(itemName: "Maçã", itemValue: 2),
     ItemList(itemName: "Banana", itemValue: 3.75),
     ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
-    // ItemList(itemName: "Laranja", itemValue: 2.5),
   ];
+
+  void addItem() async {
+    final ItemList? newItem = await showModalBottomSheet<ItemList>(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+      builder: (ctx) {
+        return const AddItem();
+      },
+    );
+
+    if (newItem != null) {
+      setState(() {
+        itensList.add(newItem);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,18 +109,7 @@ class _DetailListPageState extends State<DetailListPage> {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0),
-            ),
-            builder: (ctx) {
-              return const AddItem();
-            },
-          );
-        },
+        onPressed: addItem,
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         elevation: 3,
