@@ -3,13 +3,9 @@ import 'package:shopping_lists/models/main_list.model.dart';
 import 'package:shopping_lists/pages/detail_list.page.dart';
 
 class ListCardWidget extends StatelessWidget {
-
   final List<MainList> mainLists;
 
-  const ListCardWidget({
-    super.key,
-    required this.mainLists
-  });
+  const ListCardWidget({super.key, required this.mainLists});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +18,16 @@ class ListCardWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (ctx) => const DetailListPage()),
+            onTap: () async {
+              final updated = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => DetailListPage(mainList: list),
+                ),
               );
+
+              if (updated == true) {
+                (context as Element).markNeedsBuild();
+              }
             },
             child: Card(
               elevation: 3,

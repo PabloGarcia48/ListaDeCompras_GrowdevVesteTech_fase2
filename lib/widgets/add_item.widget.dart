@@ -77,6 +77,7 @@ class _AddItemState extends State<AddItem> {
               },
             ),
             TextFormField(
+              keyboardType: TextInputType.numberWithOptions(),
               controller: valueItemController,
               decoration: const InputDecoration(
                 border: InputBorder.none,

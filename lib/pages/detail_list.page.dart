@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_lists/models/item_list.model.dart';
+import 'package:shopping_lists/models/main_list.model.dart';
 import 'package:shopping_lists/widgets/add_item.widget.dart';
 import 'package:shopping_lists/widgets/item_card.widget.dart';
 
 class DetailListPage extends StatefulWidget {
-  const DetailListPage({super.key});
+  final MainList mainList;
+
+  const DetailListPage({super.key, required this.mainList});
 
   @override
   State<DetailListPage> createState() => _DetailListPageState();
 }
 
 class _DetailListPageState extends State<DetailListPage> {
-  final List<ItemList> itensList = [
-    ItemList(itemName: "Maçã", itemValue: 2),
-    ItemList(itemName: "Banana", itemValue: 3.75),
-    ItemList(itemName: "Laranja", itemValue: 2.5),
-  ];
-
   void addItem() async {
     final ItemList? newItem = await showModalBottomSheet<ItemList>(
       context: context,
@@ -29,7 +26,7 @@ class _DetailListPageState extends State<DetailListPage> {
 
     if (newItem != null) {
       setState(() {
-        itensList.add(newItem);
+        widget.mainList.addItem(newItem);
       });
     }
   }
@@ -41,11 +38,18 @@ class _DetailListPageState extends State<DetailListPage> {
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Text(
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+              print("Atualizar clicado");
+            },
+            child: const Text(
               "Atualizar",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
@@ -58,7 +62,7 @@ class _DetailListPageState extends State<DetailListPage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Text(
-                "Mercado",
+                widget.mainList.nameList,
                 textAlign: TextAlign.start,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
@@ -68,9 +72,23 @@ class _DetailListPageState extends State<DetailListPage> {
             Flexible(
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: itensList.length,
+                itemCount: widget.mainList.itens.length,
                 itemBuilder: (context, index) {
-                  return ItemCardWidget(item: itensList[index]);
+                  final item = widget.mainList.itens[index];
+
+                  return ItemCardWidget(
+                    item: item,
+                    onChanged: () {
+                      setState(() {
+                        item.toggleChecked();
+                      });
+                    },
+                    onDelete: () {
+                      setState(() {
+                        widget.mainList.removeItem(item);
+                      });
+                    },
+                  );
                 },
               ),
             ),
@@ -85,7 +103,7 @@ class _DetailListPageState extends State<DetailListPage> {
                     children: [
                       Text("Não marcados"),
                       Text(
-                        "R\$1.99",
+                        "R\$${widget.mainList.totalValueUnchecked.toStringAsFixed(2)}",
                         style: TextStyle(color: Colors.blue, fontSize: 16),
                       ),
                     ],
@@ -96,7 +114,7 @@ class _DetailListPageState extends State<DetailListPage> {
                     children: [
                       Text("Marcados"),
                       Text(
-                        "R\$8.50",
+                        "R\$${widget.mainList.totalValueChecked.toStringAsFixed(2)}",
                         style: TextStyle(color: Colors.green, fontSize: 16),
                       ),
                     ],

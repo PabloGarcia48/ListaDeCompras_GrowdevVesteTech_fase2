@@ -1,45 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_lists/models/item_list.model.dart';
 
-class ItemCardWidget extends StatefulWidget {
+class ItemCardWidget extends StatelessWidget {
   final ItemList item;
+  final VoidCallback onChanged;
+  final VoidCallback onDelete;
 
-  const ItemCardWidget({super.key, required this.item});
-
-  @override
-  State<ItemCardWidget> createState() => _ItemCardWidgetState();
-}
-
-class _ItemCardWidgetState extends State<ItemCardWidget> {
-  bool checked = false;
-  List<ItemList> itensList = [];
+  const ItemCardWidget({
+    super.key,
+    required this.item,
+    required this.onChanged,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      // contentPadding: const EdgeInsets.symmetric(horizontal: 0),
-      contentPadding: EdgeInsets.zero,
-      horizontalTitleGap: 10,
-      leading: Transform.scale(
-        scale: 1.5,
-        child: Checkbox(
-          value: checked,
-          shape: const CircleBorder(),
-          activeColor: Colors.green,
-          side: BorderSide(color: Colors.blue, width: 1),
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          onChanged: (value) {
-            setState(() {
-              checked = !checked;
-            });
-          },
-        ),
+    // return ListTile(
+    //   contentPadding: EdgeInsets.zero,
+    //   horizontalTitleGap: 10,
+    //   leading: Transform.scale(
+    //     scale: 1.5,
+    //     child: Checkbox(
+    //       value: item.itemChecked,
+    //       shape: const CircleBorder(),
+    //       activeColor: Colors.green,
+    //       side: const BorderSide(color: Colors.blue, width: 1),
+    //       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    //       onChanged: (_) => onChanged(),
+    //     ),
+    //   ),
+    //   title: Text(item.itemName),
+    //   trailing: Text(
+    //     "R\$ ${item.itemValue.toStringAsFixed(2)}",
+    //     style: const TextStyle(fontSize: 18),
+    //   ),
+    // );
+  return Dismissible(
+  key: ValueKey(item),
+  direction: DismissDirection.endToStart,
+  background: Container(
+    alignment: Alignment.centerRight,
+    padding: const EdgeInsets.only(right: 20),
+    color: Colors.red,
+    child: const Icon(Icons.delete, color: Colors.white),
+  ),
+  onDismissed: (_) => onDelete(),
+  child: ListTile(
+    contentPadding: EdgeInsets.zero,
+    horizontalTitleGap: 10,
+    leading: Transform.scale(
+      scale: 1.5,
+      child: Checkbox(
+        value: item.itemChecked,
+        shape: const CircleBorder(),
+        activeColor: Colors.green,
+        side: const BorderSide(color: Colors.blue, width: 1),
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        onChanged: (_) => onChanged(),
       ),
-      title: Text(widget.item.itemName),
-      trailing: Text(
-        "R\$ ${widget.item.itemValue}",
-        style: TextStyle(fontSize: 18),
-      ),
-    );
+    ),
+    title: Text(item.itemName),
+    trailing: Text(
+      "R\$ ${item.itemValue.toStringAsFixed(2)}",
+      style: const TextStyle(fontSize: 18),
+    ),
+  ),
+);
+
+
+
   }
 }
+

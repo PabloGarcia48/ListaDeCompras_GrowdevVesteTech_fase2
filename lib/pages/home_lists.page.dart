@@ -14,9 +14,9 @@ class HomeListsPage extends StatefulWidget {
 
 class _HomeListsPageState extends State<HomeListsPage> {
   final List<MainList> mainLists = [
-    MainList(nameList: "Mercados", totalItensList: 10, subTotalItensList: 5),
-    MainList(nameList: "Academia", totalItensList: 7, subTotalItensList: 2),
-    MainList(nameList: "Festa", totalItensList: 2, subTotalItensList: 2),
+    MainList(nameList: "Mercados"),
+    MainList(nameList: "Academia"),
+    MainList(nameList: "Festa"),
   ];
 
   void addList() async {
