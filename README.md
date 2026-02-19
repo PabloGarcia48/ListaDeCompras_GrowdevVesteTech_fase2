@@ -2,6 +2,8 @@
 
 Aplicativo de listas de compras, desenvolvido com **Dart + Flutter**, com foco em gerenciamento de estado, organização arquitetural e boas práticas na construção de aplicações.
 
+Veja abaixo vídeo de demonstração:
+
 <p align="center">
   <img src="assets/gif/demoVideo.gif" alt="Demo App" width="300"/>
 </p>
