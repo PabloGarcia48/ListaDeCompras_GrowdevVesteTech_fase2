@@ -5,8 +5,7 @@ import 'package:shopping_lists/widgets/empty_state_list.widget.dart';
 import 'package:shopping_lists/widgets/list_card.widget.dart';
 
 class HomeListsPage extends StatefulWidget {
-  final bool emptyState;
-  const HomeListsPage({super.key, this.emptyState = false});
+  const HomeListsPage({super.key});
 
   @override
   State<HomeListsPage> createState() => _HomeListsPageState();
@@ -14,9 +13,9 @@ class HomeListsPage extends StatefulWidget {
 
 class _HomeListsPageState extends State<HomeListsPage> {
   final List<MainList> mainLists = [
-    MainList(nameList: "Mercados"),
-    MainList(nameList: "Academia"),
-    MainList(nameList: "Festa"),
+    // MainList(nameList: "Mercados"),
+    // MainList(nameList: "Academia"),
+    // MainList(nameList: "Festa"),
   ];
 
   void addList() async {
@@ -46,7 +45,7 @@ class _HomeListsPageState extends State<HomeListsPage> {
           ),
         ],
       ),
-      body: widget.emptyState
+      body: mainLists.isEmpty
           ? const EmptyStateList()
           : ListCardWidget(mainLists: mainLists),
 

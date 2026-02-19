@@ -41,7 +41,6 @@ class _DetailListPageState extends State<DetailListPage> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(true);
-              print("Atualizar clicado");
             },
             child: const Text(
               "Atualizar",
@@ -93,7 +92,6 @@ class _DetailListPageState extends State<DetailListPage> {
               ),
             ),
 
-            // Somatórios
             Padding(
               padding: const EdgeInsets.only(top: 24, bottom: 36),
               child: Row(
