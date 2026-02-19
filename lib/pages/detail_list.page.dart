@@ -39,6 +39,7 @@ class _DetailListPageState extends State<DetailListPage> {
         foregroundColor: Colors.white,
         actions: [
           TextButton(
+            key: Key("updateListBtn"),
             onPressed: () {
               Navigator.of(context).pop(true);
             },
@@ -125,6 +126,7 @@ class _DetailListPageState extends State<DetailListPage> {
       ),
 
       floatingActionButton: FloatingActionButton.extended(
+        key: Key("addNewItemBtn"),
         onPressed: addItem,
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,

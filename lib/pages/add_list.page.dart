@@ -14,7 +14,6 @@ class _AddListPageState extends State<AddListPage> {
   void addList() {
     final list = MainList(nameList: listNameController.text);
     Navigator.of(context).pop(list);
-    print("Lista ${listNameController.text} criada");
   }
 
   @override
@@ -28,6 +27,7 @@ class _AddListPageState extends State<AddListPage> {
             Expanded(
               child: Center(
                 child: TextFormField(
+                  key: Key("listNameInput"),
                   controller: listNameController,
                   decoration: InputDecoration(
                     filled: true,
@@ -45,6 +45,7 @@ class _AddListPageState extends State<AddListPage> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
+                      key: Key("backToListsBtn"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -62,6 +63,7 @@ class _AddListPageState extends State<AddListPage> {
                   SizedBox(width: 12),
                   Expanded(
                     child: OutlinedButton(
+                      key: Key("createListBtn"),
                       onPressed: addList,
                       style: FilledButton.styleFrom(
                         backgroundColor: Colors.white,

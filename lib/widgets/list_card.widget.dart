@@ -15,6 +15,7 @@ class ListCardWidget extends StatelessWidget {
         final list = mainLists[index];
 
         return Padding(
+          key: Key("shoppingListCard"),
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
           child: InkWell(
             borderRadius: BorderRadius.circular(10),

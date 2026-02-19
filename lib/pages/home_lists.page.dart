@@ -37,6 +37,7 @@ class _HomeListsPageState extends State<HomeListsPage> {
         backgroundColor: Colors.green,
         foregroundColor: Colors.white,
         title: const Text("Minhas Listas"),
+        key: Key("appBarTitle"),
         centerTitle: true,
         actions: [
           Padding(
@@ -46,10 +47,11 @@ class _HomeListsPageState extends State<HomeListsPage> {
         ],
       ),
       body: mainLists.isEmpty
-          ? const EmptyStateList()
+          ? const EmptyStateList(key: Key("emptyListImage"))
           : ListCardWidget(mainLists: mainLists),
 
       floatingActionButton: FloatingActionButton(
+        key: Key("addListBtn"),
         onPressed: addList,
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,

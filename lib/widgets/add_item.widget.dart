@@ -22,14 +22,12 @@ class _AddItemState extends State<AddItem> {
     );
 
     if (value == null) {
-      print("Valor do produto deve ser número");
       return;
     }
 
     final item = ItemList(itemName: nameItemController.text, itemValue: value);
 
     Navigator.of(context).pop(item);
-    print("Entrou na funçao - ${nameItemController.text} ${value}");
   }
 
   @override
@@ -64,6 +62,7 @@ class _AddItemState extends State<AddItem> {
             const Divider(thickness: 2, height: 0),
             const SizedBox(height: 15),
             TextFormField(
+              key: Key("inputItem"),
               controller: nameItemController,
               decoration: const InputDecoration(
                 border: InputBorder.none,
@@ -77,6 +76,7 @@ class _AddItemState extends State<AddItem> {
               },
             ),
             TextFormField(
+              key: Key("inputValue"),
               keyboardType: TextInputType.numberWithOptions(),
               controller: valueItemController,
               decoration: const InputDecoration(
@@ -102,6 +102,7 @@ class _AddItemState extends State<AddItem> {
                 children: [
                   const Spacer(),
                   TextButton(
+                    key: Key("addItemBtn"),
                     onPressed: addItem,
                     child: Text(
                       "Adicionar",
